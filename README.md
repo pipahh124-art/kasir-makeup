@@ -10,11 +10,10 @@ Set `DATABASE_URL` in `.env.local` to a MySQL connection URL:
 DATABASE_URL=mysql://USER:PASSWORD@HOST:PORT/DATABASE
 ```
 
-The application reads the host, port, credentials, and database name from this
-URL. Keep the real connection URL in `.env.local` or your deployment
-environment; do not commit credentials. For compatibility, the application
-also accepts `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`, and `DB_NAME` when
-`DATABASE_URL` is not set.
+Every API database query and the seed script use this same connection URL. The
+host, port, credentials, and database name all come from the URL. Keep the real
+connection URL in `.env.local` or your deployment environment; do not commit
+credentials. `DATABASE_URL` is required; separate `DB_*` settings are not used.
 
 Create the tables and add the initial demo records in the configured database
 with:
