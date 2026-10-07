@@ -6,9 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "db:seed": "node scripts/seed.mjs",
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/env": "14.2.35",
     "bcryptjs": "^3.0.3",
     "jose": "^6.2.12",
     "jspdf": "^4.2.1",

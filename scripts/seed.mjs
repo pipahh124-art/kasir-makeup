@@ -1,9 +1,14 @@
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcryptjs';
 import fs from 'fs';
-const c = await mysql.createConnection({ host: process.env.DB_HOST, user: process.env.DB_USER, password: process.env.DB_PASS, multipleStatements: true });
-await c.query(fs.readFileSync('schema.sql', 'utf8'));
-await c.query('USE ' + process.env.DB_NAME);
+import nextEnv from '@next/env';
+import { getDbConfig } from '../lib/db-config.mjs';
+
+const { loadEnvConfig } = nextEnv;
+loadEnvConfig(process.cwd());
+
+const c = await mysql.createConnection({ ...getDbConfig(), multipleStatements: true });
+await c.query(fs.readFileSync(new URL('../schema.sql', import.meta.url), 'utf8'));
 const u = [['Administrator', 'admin', 'admin123', 'admin'], ['Kasir Satu', 'kasir1', 'kasir123', 'cashier']];
 for (const [n, un, pw, r] of u)
   await c.query('INSERT IGNORE INTO users (nama,username,password,role) VALUES (?,?,?,?)', [n, un, await bcrypt.hash(pw, 10), r]);

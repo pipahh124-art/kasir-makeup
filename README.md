@@ -2,6 +2,30 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Database
+
+Set `DATABASE_URL` in `.env.local` to a MySQL connection URL:
+
+```env
+DATABASE_URL=mysql://USER:PASSWORD@HOST:PORT/DATABASE
+```
+
+The application reads the host, port, credentials, and database name from this
+URL. Keep the real connection URL in `.env.local` or your deployment
+environment; do not commit credentials. For compatibility, the application
+also accepts `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`, and `DB_NAME` when
+`DATABASE_URL` is not set.
+
+Create the tables and add the initial demo records in the configured database
+with:
+
+```bash
+npm run db:seed
+```
+
+The seed uses the selected database and does not create or switch to a
+hard-coded database name.
+
 First, run the development server:
 
 ```bash
