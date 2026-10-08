@@ -4,6 +4,11 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ### Database
 
+Also set a private `JWT_SECRET` in `.env.local` and in the deployment
+environment. It must contain at least 32 bytes and is required to sign login
+tokens. Changing `.env.local` does not update an already-running or deployed
+server; restart the local server after changing it.
+
 Set `DATABASE_URL` in `.env.local` to a MySQL connection URL:
 
 ```env

@@ -12,6 +12,13 @@ export async function POST(req) {
     res.headers.append('Set-Cookie', `token=${token}; Path=/; HttpOnly; SameSite=Lax; Max-Age=28800`);
     return res;
   } catch (e) {
-    return Response.json({ error: 'Gagal terhubung ke database: ' + e.message }, { status: 500 });
+    console.error('Login request failed:', e);
+    const message = e instanceof Error ? e.message : String(e);
+    const configurationError = message.startsWith('JWT_SECRET');
+    return Response.json({
+      error: configurationError
+        ? 'Konfigurasi JWT_SECRET di server belum benar.'
+        : 'Gagal memproses login. Silakan coba lagi.',
+    }, { status: 500 });
   }
 }
